@@ -3,3 +3,5 @@ Git基础使用教程 - 老_张 - 博客园 https://www.cnblogs.com/imyalost/p/8762522.html
 git push 本地项目推送到远程分支 - 笑笑唔莱 - 博客园 https://www.cnblogs.com/llining/archive/2017/12/22/8084578.html
 
 Github 删除远端分支的某个文件或文件夹 - 夏日辉 的 知识笔记 https://blog.csdn.net/shanpenghui/article/details/89197379
+
+git如何拉取指定分支的代码 - 修行者HT - 博客园  https://www.cnblogs.com/xiuxingzhe/p/9300749.html
