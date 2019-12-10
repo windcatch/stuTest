@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./node_modules/open-iconic/font/css/open-iconic-bootstrap.css">
+    <link rel="stylesheet" href="./bootstrap-table/dist/bootstrap-table.css">
+</head>
+
+ <body>
+            <table id="addFieldMappingTable">
+                <!-- data-sortable设为false则默认显示，设为true则排序 -->
+                <!-- data-field是每列的字段名，不是表头显示的名字，通过这个字段名可以给其赋值相当于key，表内唯一 -->
+                <!-- 此方法通过data-field对应数据来渲染表格 -->
+                <!-- <thead>
+                    <tr>
+                        <th data-sortable="true" data-field="id">id</th>
+                        <th data-sortable="true" data-field="name">姓名</th>
+                        <th data-sortable="true" data-field="age">年龄</th>
+                        <th data-sortable="true" data-field="sex">性别</th>
+                        <th data-sortable="true" data-field="job">工作岗位</th>
+                        <th data-sortable="true" data-field="img">头像</th>
+                    </tr>
+                </thead> -->
+
+
+                <!-- 第二种方法即$("#xxx").bootstrapTable()方法中去渲染
+                    第二种方法可以更自由添加表头
+                -->
+            </table>
+
+            
+</body>
+<script src="./node_modules/jquery/dist/jquery.js"></script>
+<script src="./popper.js/dist/umd/popper.js"></script>
+<script src="./node_modules/mockjs/dist/mock.js"></script>
+<script src="./bootstrap/dist/js/bootstrap.js"></script>
+<script src="./bootstrap-table/dist/bootstrap-table.js"></script>
+<script src="./bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
+<script src="./createmock.js"></script>
+<script src="./index.js"></script>
+
+</html>
