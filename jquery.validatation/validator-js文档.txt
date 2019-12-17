@@ -1,0 +1,6 @@
+jquery-validator中js校验及标签校验的使用 https://www.cnblogs.com/super-chao/p/7760499.html
+
+没有input type="submit"时 ，解决方案：
+$("#submit").click(function(){
+                $("#message").valid();
+            })
