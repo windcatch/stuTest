@@ -1,7 +1,9 @@
-Git»ù´¡Ê¹ÓÃ½Ì³Ì - ÀÏ_ÕÅ - ²©¿ÍÔ° https://www.cnblogs.com/imyalost/p/8762522.html
+GitåŸºç¡€ä½¿ç”¨æ•™ç¨‹ - è€_å¼  - åšå®¢å›­ https://www.cnblogs.com/imyalost/p/8762522.html
 
-git push ±¾µØÏîÄ¿ÍÆËÍµ½Ô¶³Ì·ÖÖ§ - Ğ¦Ğ¦ßíÀ³ - ²©¿ÍÔ° https://www.cnblogs.com/llining/archive/2017/12/22/8084578.html
+git push æœ¬åœ°é¡¹ç›®æ¨é€åˆ°è¿œç¨‹åˆ†æ”¯ - ç¬‘ç¬‘å””è± - åšå®¢å›­ https://www.cnblogs.com/llining/archive/2017/12/22/8084578.html
 
-Github É¾³ıÔ¶¶Ë·ÖÖ§µÄÄ³¸öÎÄ¼ş»òÎÄ¼ş¼Ğ - ÏÄÈÕ»Ô µÄ ÖªÊ¶±Ê¼Ç https://blog.csdn.net/shanpenghui/article/details/89197379
+Github åˆ é™¤è¿œç«¯åˆ†æ”¯çš„æŸä¸ªæ–‡ä»¶æˆ–æ–‡ä»¶å¤¹ - å¤æ—¥è¾‰ çš„ çŸ¥è¯†ç¬”è®° https://blog.csdn.net/shanpenghui/article/details/89197379
 
-gitÈçºÎÀ­È¡Ö¸¶¨·ÖÖ§µÄ´úÂë - ĞŞĞĞÕßHT - ²©¿ÍÔ°  https://www.cnblogs.com/xiuxingzhe/p/9300749.html
+gitå¦‚ä½•æ‹‰å–æŒ‡å®šåˆ†æ”¯çš„ä»£ç  - ä¿®è¡Œè€…HT - åšå®¢å›­  https://www.cnblogs.com/xiuxingzhe/p/9300749.html
+
+Windowsä¸‹å¦‚ä½•å°†ä¸€ä¸ªæ–‡ä»¶å¤¹é€šè¿‡Gitä¸Šä¼ åˆ°GitHubä¸Š(è½¬) - å‰ç«¯ä¸€å¹´çº§ - åšå®¢å›­  https://www.cnblogs.com/wulibo/p/10605537.html
