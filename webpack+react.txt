@@ -1,0 +1,11 @@
+webpack4使用 https://www.jianshu.com/p/6712e4e4b8fe
+
+webpack4.x + react启用 jsx 语法  https://www.jianshu.com/p/cd54239ab4a4
+
+Plugin/Preset files are not allowed to export objects,only functions.webpack报错/babel报错的解决办法   https://www.jianshu.com/p/7d26443001b9
+
+node-sass安装坑的解决  https://www.cnblogs.com/songForU/p/10530846.html
+
+如果后续还有报错，就不停百度，关于webpack问题很多博客有提供解决方案
+
+react5 路由跳转： https://www.cnblogs.com/tianmiaogongzuoshi/p/10965062.html

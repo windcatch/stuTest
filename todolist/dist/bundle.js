@@ -141,12 +141,52 @@ var App = function (_React$Component) {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-            choosevalue: 1,
+            choosevalue: 1, /*添加一个choosevalue的state，默认为1，即全选*/
             data: _this.props.data
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(App, [{
+        key: "ChooseValue",
+        value: function ChooseValue(id) {
+            /*选择任务状态的函数*/
+            this.setState({ choosevalue: id });
+        }
+    }, {
+        key: "OnAddTodoItem",
+        value: function OnAddTodoItem(newItem) {
+            /*添加数据的函数*/
+            var newdata = this.state.data.concat(newItem);
+            this.setState({ data: newdata });
+            /*setState方法会重新渲染组件，直接用this.state.xxx不会重新渲染组件。它的参数是对象或者函数*/
+        }
+
+        /*添加两个方法AllChangeComplete：改变状态；AllOnDeleteItem：删除list的方法。*/
+
+    }, {
+        key: "AllChangeComplete",
+        value: function AllChangeComplete(id) {
+            var newdata = this.state.data.map(function (item, index) {
+                if (item.id === id) {
+                    /*匹配传来的id*/
+                    item.complete = !item.complete;
+                }
+                return item;
+            });
+            this.setState({ data: newdata }); /*以新数据来渲染组件*/
+        }
+    }, {
+        key: "AllOnDeleteItem",
+        value: function AllOnDeleteItem(id) {
+            var newdata2 = this.state.data.map(function (item) {
+                if (item.id == id) {
+                    item.deleteFlag = true; /*新增一个属性，判定是否要删除*/
+                }
+                return item;
+            });
+            this.setState({ data: newdata2 });
+        }
+    }, {
         key: "render",
         value: function render() {
             var data = this.state.data;
@@ -159,10 +199,17 @@ var App = function (_React$Component) {
                     null,
                     "My todo with React"
                 ),
-                _react2.default.createElement("div", { className: "ui divider" }),
-                _react2.default.createElement(_AppForm2.default, null),
-                _react2.default.createElement(_AppList2.default, { data: data }),
-                _react2.default.createElement(_AppFooter2.default, null)
+                _react2.default.createElement("hr", null),
+                _react2.default.createElement(_AppForm2.default, { AddTodoItem: this.OnAddTodoItem.bind(this) }),
+                _react2.default.createElement(_AppList2.default, {
+                    data: data,
+                    choosevalue: this.state.choosevalue /*将选择值choosevalue传给AppList组件*/
+                    , ChangeCompleteTop: this.AllChangeComplete.bind(this) /*传入改变完成状态的方法*/
+                    , DeleteItemTop: this.AllOnDeleteItem.bind(this) /*传入删除工作任务的方法*/
+                }),
+                _react2.default.createElement(_AppFooter2.default, {
+                    SubmitChooseValue: this.ChooseValue.bind(this) /*将ChooseValue方法以SubmitChooseValue为名称传递给子组件*/
+                })
             );
         }
     }]);
@@ -203,12 +250,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var styles = {
-  'title': {
+  title: {
     marginRight: 10,
     fontSize: 20
   },
 
-  'top': {
+  top: {
     marginTop: 20
   }
 };
@@ -223,48 +270,72 @@ var AppFooter = function (_React$Component) {
   }
 
   _createClass(AppFooter, [{
-    key: 'render',
+    key: "handleAll",
+
+    /*处理点击不同按钮的事件*/
+    value: function handleAll() {
+      var all = this.refs.all.value; /*获取ref为all的value值*/
+      this.props.SubmitChooseValue(all); /*子组件调用父组件传来的方法，来操作state中的ChooseValue*/
+    }
+  }, {
+    key: "handleActive",
+    value: function handleActive() {
+      var active = this.refs.active.value;
+      this.props.SubmitChooseValue(active);
+    }
+  }, {
+    key: "handleComplete",
+    value: function handleComplete() {
+      var complete = this.refs.complete.value;
+      this.props.SubmitChooseValue(complete);
+    }
+  }, {
+    key: "render",
     value: function render() {
       return _react2.default.createElement(
-        'div',
+        "div",
         null,
         _react2.default.createElement(
-          'h2',
+          "h2",
           { style: styles.top },
-          'show'
+          "show"
         ),
         _react2.default.createElement(
-          'button',
-          {
-            type: 'submit',
-            style: styles.top,
-            className: 'ui blue button',
-            value: '1',
-            ref: 'all'
-          },
-          '\u5168\u90E8'
-        ),
-        _react2.default.createElement(
-          'button',
-          {
-            type: 'submit',
-            style: styles.top,
-            className: 'ui blue button',
-            value: '2',
-            ref: 'active'
-          },
-          '\u8FD8\u672A\u5B8C\u6210'
-        ),
-        _react2.default.createElement(
-          'button',
-          {
-            type: 'submit',
-            style: styles.top,
-            className: 'ui blue button',
-            value: '3',
-            ref: 'complete'
-          },
-          '\u5DF2\u5B8C\u6210'
+          "div",
+          { className: "btn-group" },
+          _react2.default.createElement(
+            "button",
+            {
+              type: "submit",
+              className: "btn btn-primary",
+              value: "1",
+              ref: "all",
+              onClick: this.handleAll.bind(this)
+            },
+            "\u5168\u90E8"
+          ),
+          _react2.default.createElement(
+            "button",
+            {
+              type: "submit",
+              className: "btn btn-primary",
+              value: "2",
+              ref: "active",
+              onClick: this.handleActive.bind(this)
+            },
+            "\u8FD8\u672A\u5B8C\u6210"
+          ),
+          _react2.default.createElement(
+            "button",
+            {
+              type: "submit",
+              className: "btn btn-primary",
+              value: "3",
+              ref: "complete",
+              onClick: this.handleComplete.bind(this)
+            },
+            "\u5DF2\u5B8C\u6210"
+          )
         )
       );
     }
@@ -328,12 +399,28 @@ var AppForm = function (_React$Component) {
   }
 
   _createClass(AppForm, [{
+    key: 'handleSubmit',
+    value: function handleSubmit(event) {
+      /*声明一个函数来处理onsubmit事件*/
+      event.preventDefault(); /*阻止事件默认行为*/
+      var text = this.refs.text.value;
+      /*通过this.refs.xxx  来取react用特殊属性ref绑定的组件*/
+      if (!text.trim()) {
+        alert("Input can't be null");
+        return;
+      }
+      var id = (0, _uuid2.default)(); /*通过uuid生成的id*/
+      this.props.AddTodoItem({ id: id, text: text, complete: false });
+      /*通过父组件传来的方法传值给父组件 (完成状态默认false)*/
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'form',
-        { className: 'ui reply form' },
-        '  ',
+        {
+          className: 'ui reply form',
+          onSubmit: this.handleSubmit.bind(this) },
         _react2.default.createElement(
           'div',
           { className: 'field input-md', style: styles.title },
@@ -341,7 +428,7 @@ var AppForm = function (_React$Component) {
         ),
         _react2.default.createElement(
           'button',
-          { type: 'submit', className: 'ui btn btn-primary' },
+          { type: 'submit', className: 'btn btn-primary' },
           '\u6DFB\u52A0'
         )
       );
@@ -366,7 +453,7 @@ exports.default = AppForm;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -388,41 +475,84 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var AppList = function (_React$Component) {
-  _inherits(AppList, _React$Component);
+    _inherits(AppList, _React$Component);
 
-  function AppList() {
-    _classCallCheck(this, AppList);
+    function AppList() {
+        _classCallCheck(this, AppList);
 
-    return _possibleConstructorReturn(this, (AppList.__proto__ || Object.getPrototypeOf(AppList)).apply(this, arguments));
-  }
-
-  _createClass(AppList, [{
-    key: 'render',
-    value: function render() {
-      var a = this.props.data.map(function (_ref, index) {
-        var id = _ref.id,
-            text = _ref.text,
-            complete = _ref.complete;
-
-        return _react2.default.createElement(_AppTodos2.default, {
-          key: index,
-          id: id,
-          text: text,
-          complete: complete
-        });
-      });
-
-      return _react2.default.createElement(
-        'div',
-        null,
-        ' ',
-        a,
-        ' '
-      );
+        return _possibleConstructorReturn(this, (AppList.__proto__ || Object.getPrototypeOf(AppList)).apply(this, arguments));
     }
-  }]);
 
-  return AppList;
+    _createClass(AppList, [{
+        key: 'SubmitDelete',
+        value: function SubmitDelete(id) {
+            this.props.DeleteItemTop(id);
+        }
+    }, {
+        key: 'ChangeDone',
+        value: function ChangeDone(id) {
+            this.props.ChangeCompleteTop(id);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var value = this.props.choosevalue;
+            /*AppList组件根据choosevalue来渲染*/
+
+            var a = this.props.data.map(function (_ref, index) {
+                var id = _ref.id,
+                    text = _ref.text,
+                    complete = _ref.complete,
+                    deleteFlag = _ref.deleteFlag;
+
+                if (value == '1' && deleteFlag !== true) {
+                    /*1---------all全部*/
+                    return _react2.default.createElement(_AppTodos2.default, {
+                        key: index,
+                        id: id,
+                        text: text,
+                        complete: complete,
+                        ChangeCompleteItem: _this2.ChangeDone.bind(_this2) /*再把修改完成状态的方法传到AppTodos组件*/
+                        , SubmitDeleteItem: _this2.SubmitDelete.bind(_this2)
+                    });
+                }
+                if (value == "2" && complete === false && deleteFlag !== true) {
+                    /*2----------active未完成 则返回complete为false的部分*/
+                    return _react2.default.createElement(_AppTodos2.default, {
+                        key: index,
+                        id: id,
+                        text: text,
+                        complete: complete,
+                        ChangeCompleteItem: _this2.ChangeDone.bind(_this2),
+                        SubmitDeleteItem: _this2.SubmitDelete.bind(_this2)
+                    });
+                }
+                if (value == "3" && complete === true && deleteFlag !== true) {
+                    /*3----------complete完成 则返回complete为true的部分*/
+                    return _react2.default.createElement(_AppTodos2.default, {
+                        key: index,
+                        id: id,
+                        text: text,
+                        complete: complete,
+                        ChangeCompleteItem: _this2.ChangeDone.bind(_this2),
+                        SubmitDeleteItem: _this2.SubmitDelete.bind(_this2)
+                    });
+                }
+            });
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                ' ',
+                a,
+                ' '
+            );
+        }
+    }]);
+
+    return AppList;
 }(_react2.default.Component);
 
 exports.default = AppList;
@@ -440,7 +570,7 @@ exports.default = AppList;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -458,69 +588,82 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var styles = {
-  'title': {
-    paddingLeft: '20px',
-    paddingRight: '50px',
-    position: 'relative'
-  },
-  'delete': {
-    marginLeft: '20px',
-    marginRight: '50px'
-  }
+    'title': {
+        paddingLeft: '20px',
+        paddingRight: '50px',
+        position: 'relative'
+    },
+    'delete': {
+        marginLeft: '20px',
+        marginRight: '50px'
+    }
 };
 
 var AppTodos = function (_React$Component) {
-  _inherits(AppTodos, _React$Component);
+    _inherits(AppTodos, _React$Component);
 
-  function AppTodos() {
-    _classCallCheck(this, AppTodos);
+    function AppTodos() {
+        _classCallCheck(this, AppTodos);
 
-    return _possibleConstructorReturn(this, (AppTodos.__proto__ || Object.getPrototypeOf(AppTodos)).apply(this, arguments));
-  }
-
-  _createClass(AppTodos, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'comment' },
-        _react2.default.createElement(
-          'div',
-          { className: 'content' },
-          _react2.default.createElement(
-            'span',
-            {
-              className: 'author',
-              style: styles.title
-            },
-            this.props.text,
-            _react2.default.createElement('span', {
-              className: this.props.complete ? 'line' : ''
-            })
-          ),
-          _react2.default.createElement(
-            'span',
-            { className: 'author',
-              style: styles.title },
-            this.props.complete ? '已完成' : '未完成'
-          ),
-          _react2.default.createElement(
-            'span',
-            { className: 'author' },
-            this.props.id
-          ),
-          _react2.default.createElement(
-            'span',
-            { className: 'ui blue button',
-              style: styles.delete },
-            '\u5220\u9664'
-          )
-        )
-      );
+        return _possibleConstructorReturn(this, (AppTodos.__proto__ || Object.getPrototypeOf(AppTodos)).apply(this, arguments));
     }
-  }]);
 
-  return AppTodos;
+    _createClass(AppTodos, [{
+        key: 'handleChangeComplete',
+        value: function handleChangeComplete() {
+            this.props.ChangeCompleteItem(this.props.id);
+        }
+    }, {
+        key: 'handleDelete',
+        value: function handleDelete() {
+            this.props.SubmitDeleteItem(this.props.id);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'comment' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'content' },
+                    _react2.default.createElement(
+                        'span',
+                        {
+                            className: 'author',
+                            style: styles.title,
+                            onClick: this.handleChangeComplete.bind(this)
+                        },
+                        this.props.text,
+                        _react2.default.createElement('span', {
+                            className: this.props.complete ? 'line' : ''
+                        })
+                    ),
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'author',
+                            style: styles.title },
+                        this.props.complete ? '已完成' : '未完成'
+                    ),
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'author' },
+                        this.props.id
+                    ),
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'btn btn-primary',
+                            style: styles.delete,
+                            onClick: this.handleDelete.bind(this)
+                        },
+                        '\u5220\u9664'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return AppTodos;
 }(_react2.default.Component);
 
 exports.default = AppTodos;
@@ -551,7 +694,7 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var data = [{ id: 0, text: '天气不错!!!', complete: false }, { id: 1, text: '天气不错!!!', complete: false }, { id: 2, text: '出去玩啊!!!', complete: true }];
+var data = [{ id: 0, text: '天气不错!!!', complete: false, deleteFlag: false }, { id: 1, text: '天气不错!!!', complete: false, deleteFlag: false }, { id: 2, text: '出去玩啊!!!', complete: true, deleteFlag: false }];
 
 _reactDom2.default.render(_react2.default.createElement(_App2.default, { data: data }), document.getElementById('app'));
 
