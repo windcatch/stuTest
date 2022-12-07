@@ -2988,6 +2988,11 @@ once@^1.3.0, once@^1.4.0:
   dependencies:
     wrappy "1"
 
+"open-iconic@git+https://github.com/iconic/open-iconic.git":
+  version "1.1.1"
+  uid "1d1e8885c5031874b32f4e480e371ce2b1c24144"
+  resolved "git+https://github.com/iconic/open-iconic.git#1d1e8885c5031874b32f4e480e371ce2b1c24144"
+
 os-browserify@~0.1.1:
   version "0.1.2"
   resolved "http://168.61.17.126/os-browserify/download/os-browserify-0.1.2.tgz#49ca0293e0b19590a5f5de10c7f265a617d8fe54"
@@ -3258,9 +3263,9 @@ qs@6.7.0:
   integrity sha1-QdwaAV49WB8WIXdr4xr7KHapsbw=
 
 qs@~6.5.2:
-  version "6.5.2"
-  resolved "http://168.61.17.126/qs/download/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
-  integrity sha1-yzroBuh0BERYTvFUzo7pjUA/PjY=
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.3.tgz#3aeeffc91967ef6e35c0e488ef46fb296ab76aad"
+  integrity sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA==
 
 querystring-es3@~0.2.0:
   version "0.2.1"
